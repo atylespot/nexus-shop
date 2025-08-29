@@ -10,13 +10,11 @@ const nextConfig = {
     domains: ['localhost', 'giftcombobd.com'],
     unoptimized: true,
   },
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
