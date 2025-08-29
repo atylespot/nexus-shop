@@ -1,0 +1,22 @@
+﻿Backup Created: 2025-08-22_17-18-28
+Project: Nexus Shop
+Backup Location: .\backups\backup_2025-08-22_17-18-28
+
+Directories Backed Up:
+app
+components
+lib
+prisma
+scripts
+
+Files Backed Up:
+package.json
+package-lock.json
+next.config.ts
+tsconfig.json
+README.md
+
+To Restore:
+1. Stop the server
+2. Copy files from backup folder to project root
+3. Restart server

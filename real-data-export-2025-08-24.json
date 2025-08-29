@@ -1,0 +1,492 @@
+{
+  "timestamp": "2025-08-24T13:56:28.273Z",
+  "users": [
+    {
+      "id": 1,
+      "name": "Super Admin",
+      "email": "admin@nexus-shop.com",
+      "status": "ACTIVE",
+      "roleId": null,
+      "managerId": null,
+      "createdAt": "2025-08-24T13:49:21.094Z",
+      "updatedAt": "2025-08-24T13:49:21.094Z",
+      "userId": "admin",
+      "passwordHash": "$2b$12$NpVqlIgX2yUNm9uB61v8xeJClEahTA4wE284KftwKTNegO6jeed0S",
+      "loginSlug": "admin",
+      "phone": "+8801234567890",
+      "avatarUrl": null
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics",
+      "slug": "electronics",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.096Z",
+      "updatedAt": "2025-08-24T13:53:26.096Z"
+    },
+    {
+      "id": 2,
+      "name": "Clothing",
+      "slug": "clothing",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.105Z",
+      "updatedAt": "2025-08-24T13:53:26.105Z"
+    },
+    {
+      "id": 3,
+      "name": "Home & Garden",
+      "slug": "home-garden",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.113Z",
+      "updatedAt": "2025-08-24T13:53:26.113Z"
+    },
+    {
+      "id": 4,
+      "name": "Sports & Outdoors",
+      "slug": "sports-outdoors",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.119Z",
+      "updatedAt": "2025-08-24T13:53:26.119Z"
+    },
+    {
+      "id": 5,
+      "name": "Books & Media",
+      "slug": "books-media",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.171Z",
+      "updatedAt": "2025-08-24T13:53:26.171Z"
+    },
+    {
+      "id": 6,
+      "name": "Health & Beauty",
+      "slug": "health-beauty",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.185Z",
+      "updatedAt": "2025-08-24T13:53:26.185Z"
+    },
+    {
+      "id": 7,
+      "name": "Toys & Games",
+      "slug": "toys-games",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.195Z",
+      "updatedAt": "2025-08-24T13:53:26.195Z"
+    },
+    {
+      "id": 8,
+      "name": "Automotive",
+      "slug": "automotive",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.201Z",
+      "updatedAt": "2025-08-24T13:53:26.201Z"
+    },
+    {
+      "id": 9,
+      "name": "Food & Beverages",
+      "slug": "food-beverages",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.211Z",
+      "updatedAt": "2025-08-24T13:53:26.211Z"
+    },
+    {
+      "id": 10,
+      "name": "Jewelry & Accessories",
+      "slug": "jewelry-accessories",
+      "imageUrl": null,
+      "parentId": null,
+      "createdAt": "2025-08-24T13:53:26.237Z",
+      "updatedAt": "2025-08-24T13:53:26.237Z"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Smartphone X1",
+      "slug": "smartphone-x1",
+      "description": "Latest smartphone with advanced features",
+      "aiDescription": null,
+      "buyPrice": 15000,
+      "regularPrice": 25000,
+      "salePrice": 22000,
+      "currency": "BDT",
+      "sku": "PHONE-001",
+      "status": "PUBLISHED",
+      "categoryId": 1,
+      "createdAt": "2025-08-24T13:53:26.245Z",
+      "updatedAt": "2025-08-24T13:53:26.245Z",
+      "category": {
+        "id": 1,
+        "name": "Electronics",
+        "slug": "electronics",
+        "imageUrl": null,
+        "parentId": null,
+        "createdAt": "2025-08-24T13:53:26.096Z",
+        "updatedAt": "2025-08-24T13:53:26.096Z"
+      },
+      "images": [],
+      "variations": []
+    },
+    {
+      "id": 2,
+      "name": "Wireless Headphones",
+      "slug": "wireless-headphones",
+      "description": "High-quality wireless headphones",
+      "aiDescription": null,
+      "buyPrice": 800,
+      "regularPrice": 1500,
+      "salePrice": 1200,
+      "currency": "BDT",
+      "sku": "AUDIO-001",
+      "status": "PUBLISHED",
+      "categoryId": 1,
+      "createdAt": "2025-08-24T13:53:26.253Z",
+      "updatedAt": "2025-08-24T13:53:26.253Z",
+      "category": {
+        "id": 1,
+        "name": "Electronics",
+        "slug": "electronics",
+        "imageUrl": null,
+        "parentId": null,
+        "createdAt": "2025-08-24T13:53:26.096Z",
+        "updatedAt": "2025-08-24T13:53:26.096Z"
+      },
+      "images": [],
+      "variations": []
+    },
+    {
+      "id": 3,
+      "name": "Men's T-Shirt",
+      "slug": "mens-tshirt",
+      "description": "Comfortable cotton t-shirt",
+      "aiDescription": null,
+      "buyPrice": 200,
+      "regularPrice": 500,
+      "salePrice": 400,
+      "currency": "BDT",
+      "sku": "CLOTH-001",
+      "status": "PUBLISHED",
+      "categoryId": 2,
+      "createdAt": "2025-08-24T13:53:26.263Z",
+      "updatedAt": "2025-08-24T13:53:26.263Z",
+      "category": {
+        "id": 2,
+        "name": "Clothing",
+        "slug": "clothing",
+        "imageUrl": null,
+        "parentId": null,
+        "createdAt": "2025-08-24T13:53:26.105Z",
+        "updatedAt": "2025-08-24T13:53:26.105Z"
+      },
+      "images": [],
+      "variations": []
+    },
+    {
+      "id": 4,
+      "name": "Garden Tool Set",
+      "slug": "garden-tool-set",
+      "description": "Complete garden maintenance kit",
+      "aiDescription": null,
+      "buyPrice": 1500,
+      "regularPrice": 3000,
+      "salePrice": 2500,
+      "currency": "BDT",
+      "sku": "GARDEN-001",
+      "status": "PUBLISHED",
+      "categoryId": 3,
+      "createdAt": "2025-08-24T13:53:26.289Z",
+      "updatedAt": "2025-08-24T13:53:26.289Z",
+      "category": {
+        "id": 3,
+        "name": "Home & Garden",
+        "slug": "home-garden",
+        "imageUrl": null,
+        "parentId": null,
+        "createdAt": "2025-08-24T13:53:26.113Z",
+        "updatedAt": "2025-08-24T13:53:26.113Z"
+      },
+      "images": [],
+      "variations": []
+    },
+    {
+      "id": 5,
+      "name": "Fitness Tracker",
+      "slug": "fitness-tracker",
+      "description": "Smart fitness tracking device",
+      "aiDescription": null,
+      "buyPrice": 1200,
+      "regularPrice": 2500,
+      "salePrice": 2000,
+      "currency": "BDT",
+      "sku": "FITNESS-001",
+      "status": "PUBLISHED",
+      "categoryId": 4,
+      "createdAt": "2025-08-24T13:53:26.302Z",
+      "updatedAt": "2025-08-24T13:53:26.302Z",
+      "category": {
+        "id": 4,
+        "name": "Sports & Outdoors",
+        "slug": "sports-outdoors",
+        "imageUrl": null,
+        "parentId": null,
+        "createdAt": "2025-08-24T13:53:26.119Z",
+        "updatedAt": "2025-08-24T13:53:26.119Z"
+      },
+      "images": [],
+      "variations": []
+    }
+  ],
+  "siteSettings": [
+    {
+      "id": 1,
+      "header": {
+        "logo": "/logo.png",
+        "favicon": "/favicon.ico"
+      },
+      "banner": null,
+      "footer": null,
+      "general": {
+        "site_name": "Nexus Shop",
+        "site_description": "Your trusted online shopping destination",
+        "contact_email": "info@nexus-shop.com",
+        "contact_phone": "+8801234567890",
+        "contact_address": "Dhaka, Bangladesh",
+        "currency": "BDT",
+        "currency_symbol": "৳"
+      },
+      "payment": {
+        "tax_rate": 5
+      },
+      "shipping": {
+        "shipping_cost": 100,
+        "free_shipping_threshold": 1000
+      },
+      "createdAt": "2025-08-24T13:54:09.813Z",
+      "updatedAt": "2025-08-24T13:54:39.178Z"
+    }
+  ],
+  "pixelSettings": [
+    {
+      "id": 1,
+      "fbPixelId": "2669858003221642",
+      "fbAccessToken": "EAAZAb8cMTNGEBPfYrgru08fP9znSmgh1uBZCdocWKjydpXjhm2M7PZAxXhxR4CaBk0U6lvgAmiD1dk9J2W4wSyxV6fCeV5OIsuVecZBWJqWaqqNu8PxpDIo5ZAoGI09iASLku4guvjzyllMELZB3pMRDYsImLmMb0Ll0WHHs7SOL3INMmZBWpYrZCRdZCDuXvWQZDZD",
+      "fbTestEventCode": "TEST3835",
+      "testEventCodeCreatedAt": "2025-08-24T13:50:49.894Z",
+      "ttPixelId": null,
+      "ttAccessToken": null,
+      "enabled": false,
+      "createdAt": "2025-08-24T13:50:49.895Z",
+      "updatedAt": "2025-08-24T13:50:49.895Z"
+    }
+  ],
+  "courierSettings": [
+    {
+      "id": 1,
+      "apiKey": "your_packzy_api_key",
+      "secretKey": "your_packzy_secret_key",
+      "baseUrl": "https://portal.packzy.com/api/v1",
+      "isActive": false,
+      "createdAt": "2025-08-24T13:54:09.823Z",
+      "updatedAt": "2025-08-24T13:54:09.823Z"
+    }
+  ],
+  "bdCourierSettings": [
+    {
+      "id": 1,
+      "apiKey": "your_bd_courier_api_key",
+      "isActive": false,
+      "createdAt": "2025-08-24T13:54:09.828Z",
+      "updatedAt": "2025-08-24T13:54:09.828Z"
+    }
+  ],
+  "emailSettings": [
+    {
+      "id": 1,
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "user": "your_email@gmail.com",
+      "pass": "your_app_password",
+      "from": "noreply@nexus-shop.com",
+      "isActive": false,
+      "provider": "SMTP",
+      "apiKey": null,
+      "createdAt": "2025-08-24T13:54:09.839Z",
+      "updatedAt": "2025-08-24T13:54:09.839Z"
+    }
+  ],
+  "chatBotSettings": [
+    {
+      "id": 1,
+      "isEnabled": true,
+      "welcomeMessage": "স্বাগতম! আমি আপনার সাহায্য করতে পারি।",
+      "aiModel": "gpt-4o-mini",
+      "maxTokens": 1000,
+      "temperature": 0.7,
+      "systemPrompt": "You are a highly intelligent and helpful AI assistant for Nexus Shop, an e-commerce website. Follow these guidelines strictly:\n \n **Language**: Always respond in Bengali (Bangla) language.\n \n **Page Context Awareness**:\n - You know which page the customer is currently on\n - Use this context to provide more relevant responses\n - If they're on a product page, you can reference that product\n - If they're on checkout, help with payment/order issues\n - If they're on cart, help with cart-related questions\n \n **Smart Responses**: \n - NEVER give direct product lists or prices without context\n - Guide customers to explore the website themselves\n - Ask them to click on products and tell you the name\n - Then provide detailed information about that specific product\n \n **When you can't answer**:\n - Politely explain why you can't provide direct information\n - Guide them to explore the website\n - Provide contact information (email: support@nexusshop.com, WhatsApp: +8801234567890)\n - Ask them to contact directly for specific queries\n \n **Product Information**:\n - Don't list all products at once\n - Ask customers to browse and select specific products\n - Provide detailed info only when they mention a specific product name\n - Include price, features, availability, and recommendations\n \n **Customer Service**:\n - Be helpful but guide them to self-service\n - For complex queries, suggest direct contact\n - Always maintain a friendly and professional tone\n \n **Example Response**: \"আপনি আমাদের ওয়েবসাইটে যে কোন প্রোডাক্ট ক্লিক করে দেখতে পারেন। আপনি কোন প্রোডাক্টের নাম বলুন, আমি আপনাকে বিস্তারিত তথ্য দিতে পারব।\"",
+      "autoResponseDelay": 1000,
+      "workingHours": {
+        "monday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": true
+        },
+        "tuesday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": true
+        },
+        "wednesday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": true
+        },
+        "thursday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": true
+        },
+        "friday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": true
+        },
+        "saturday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": true
+        },
+        "sunday": {
+          "start": "09:00",
+          "end": "18:00",
+          "isWorking": false
+        }
+      },
+      "offlineMessage": "আমরা এখন অফলাইনে আছি। আপনার মেসেজ রেখে দিন, আমরা শীঘ্রই যোগাযোগ করব।",
+      "openaiApiKey": null,
+      "contactEmail": "support@nexusshop.com",
+      "contactWhatsApp": "+8801234567890",
+      "contactWebsite": "https://nexusshop.com",
+      "createdAt": "2025-08-24T13:42:35.405Z",
+      "updatedAt": "2025-08-24T13:42:35.405Z"
+    }
+  ],
+  "sizes": [
+    {
+      "id": 1,
+      "name": "XS",
+      "description": "XS size",
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.189Z",
+      "updatedAt": "2025-08-24T13:54:39.189Z"
+    },
+    {
+      "id": 2,
+      "name": "S",
+      "description": "S size",
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.202Z",
+      "updatedAt": "2025-08-24T13:54:39.202Z"
+    },
+    {
+      "id": 3,
+      "name": "M",
+      "description": "M size",
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.208Z",
+      "updatedAt": "2025-08-24T13:54:39.208Z"
+    },
+    {
+      "id": 4,
+      "name": "L",
+      "description": "L size",
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.220Z",
+      "updatedAt": "2025-08-24T13:54:39.220Z"
+    },
+    {
+      "id": 5,
+      "name": "XL",
+      "description": "XL size",
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.226Z",
+      "updatedAt": "2025-08-24T13:54:39.226Z"
+    },
+    {
+      "id": 6,
+      "name": "XXL",
+      "description": "XXL size",
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.237Z",
+      "updatedAt": "2025-08-24T13:54:39.237Z"
+    }
+  ],
+  "colors": [
+    {
+      "id": 1,
+      "name": "Red",
+      "hexCode": "#FF0000",
+      "description": null,
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.243Z",
+      "updatedAt": "2025-08-24T13:54:39.243Z"
+    },
+    {
+      "id": 2,
+      "name": "Blue",
+      "hexCode": "#0000FF",
+      "description": null,
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.254Z",
+      "updatedAt": "2025-08-24T13:54:39.254Z"
+    },
+    {
+      "id": 3,
+      "name": "Green",
+      "hexCode": "#00FF00",
+      "description": null,
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.261Z",
+      "updatedAt": "2025-08-24T13:54:39.261Z"
+    },
+    {
+      "id": 4,
+      "name": "Black",
+      "hexCode": "#000000",
+      "description": null,
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.275Z",
+      "updatedAt": "2025-08-24T13:54:39.275Z"
+    },
+    {
+      "id": 5,
+      "name": "White",
+      "hexCode": "#FFFFFF",
+      "description": null,
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.287Z",
+      "updatedAt": "2025-08-24T13:54:39.287Z"
+    },
+    {
+      "id": 6,
+      "name": "Yellow",
+      "hexCode": "#FFFF00",
+      "description": null,
+      "isActive": true,
+      "createdAt": "2025-08-24T13:54:39.291Z",
+      "updatedAt": "2025-08-24T13:54:39.291Z"
+    }
+  ],
+  "orders": [],
+  "landingPages": [],
+  "chatSessions": []
+}

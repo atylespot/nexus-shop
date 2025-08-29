@@ -1,0 +1,572 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String
+  slug      String     @unique
+  imageUrl  String?
+  parentId  Int?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  parent    Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryToCategory")
+  products  Product[]
+}
+
+model Product {
+  id            Int            @id @default(autoincrement())
+  name          String
+  slug          String         @unique
+  description   String?
+  aiDescription String?
+  buyPrice      Float
+  regularPrice  Float
+  salePrice     Float?
+  currency      String         @default("BDT")
+  sku           String?        @unique
+  status        String         @default("DRAFT")
+  categoryId    Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  inventory     Inventory?
+  orderItems    OrderItem[]
+  category      Category       @relation(fields: [categoryId], references: [id])
+  images        ProductImage[]
+  purchases     ProductPurchase[]
+  landingPages  LandingPage[]
+  landingOrders LandingPageOrder[]
+  variations    ProductVariation[]
+}
+
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  url       String
+  alt       String?
+  order     Int     @default(0)
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Inventory {
+  id                Int     @id @default(autoincrement())
+  productId         Int     @unique
+  quantity          Int     @default(0)
+  lowStockThreshold Int     @default(2)
+  product           Product @relation(fields: [productId], references: [id])
+}
+
+model CourierSetting {
+  id        Int      @id @default(autoincrement())
+  apiKey    String
+  secretKey String
+  baseUrl   String   @default("https://portal.packzy.com/api/v1")
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BDCourierSetting {
+  id        Int      @id @default(autoincrement())
+  apiKey    String
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CourierOrder {
+  id              Int      @id @default(autoincrement())
+  orderId         Int      @unique
+  orderType       String   @default("website") // website | landing_page
+  consignmentId   String?
+  trackingCode    String?
+  courierStatus   String   @default("pending")
+  courierNote     String?
+  deliveryCharge  Float?
+  courierResponse Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Manual entries for courier payment statements added by admins
+model ManualCourierPayment {
+  id              Int      @id @default(autoincrement())
+  date            DateTime @default(now())
+  amount          Float
+  deliveryCharge  Float?   // optional
+  codCharge       Float?   // optional
+  adjustment      Float?   // optional
+  statementNo     String?  // optional reference number
+  note            String?  // optional memo
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Order {
+  id             Int           @id @default(autoincrement())
+  orderNo        String        @unique
+  customerName   String?
+  userEmail      String?
+  phone          String?
+  status         String        @default("processing")
+  paymentStatus  String        @default("UNPAID")
+  shippingMethod String?
+  shippingCost   Float?
+  subtotal       Float
+  total          Float
+  currency       String        @default("BDT")
+  fbEventId      String?
+  ttEventId      String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  address        String?
+  district       String?
+  items          OrderItem[]
+  // Optional link to storefront customer (if logged in during checkout)
+  customerId     Int?
+  customer       Customer?     @relation(fields: [customerId], references: [id])
+}
+
+// New simplified order model for landing pages
+model LandingPageOrder {
+  id             Int      @id @default(autoincrement())
+  customerName   String
+  customerPhone  String
+  customerAddress String
+  productId      Int
+  productName    String
+  productPrice   Float
+  deliveryCharge Float    @default(0)
+  totalAmount    Float
+  deliveryArea   String
+  status         String   @default("processing") // processing, shipped, delivered, cancelled
+  landingPageId  Int
+  orderDate      DateTime @default(now())
+  paymentMethod  String   @default("cash_on_delivery")
+  product        Product  @relation(fields: [productId], references: [id])
+  history        OrderHistory[]
+  // Optional link to storefront customer
+  customerId     Int?
+  customer       Customer? @relation(fields: [customerId], references: [id])
+}
+
+model OrderHistory {
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  status     String
+  statusDate DateTime @default(now())
+  notes      String?
+  order      LandingPageOrder @relation(fields: [orderId], references: [id])
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  price     Float
+  product   Product @relation(fields: [productId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
+}
+
+model PixelSetting {
+  id                    Int       @id @default(autoincrement())
+  fbPixelId             String?
+  fbAccessToken         String?
+  fbTestEventCode       String?
+  testEventCodeCreatedAt DateTime?
+  ttPixelId             String?
+  ttAccessToken         String?
+  enabled               Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
+
+model SiteSetting {
+  id        Int      @id @default(autoincrement())
+  header    Json?
+  banner    Json?
+  footer    Json?
+  general   Json?
+  payment   Json?
+  shipping  Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Settings for Customer Info module (retention and checkout offer)
+model CustomerInfoSetting {
+  id                  Int      @id @default(1)
+  retentionDays       Int      @default(30)
+  offerEnabled        Boolean  @default(false)
+  offerDelaySeconds   Int      @default(10)
+  offerTitle          String?  
+  offerMessage        String?  
+  offerCtaText        String?  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+// New granular retention setting (single-row)
+model JourneyRetentionSetting {
+  id            Int      @id @default(1)
+  retentionDays Int      @default(30)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// New per-scope/per-target checkout offer settings
+model CheckoutOfferSetting {
+  id               Int      @id @default(autoincrement())
+  scope            String   @default("website") // website | landing_page | both
+  enabled          Boolean  @default(false)
+  delaySeconds     Int      @default(10)
+  title            String?
+  message          String?
+  ctaText          String?
+  imageUrl         String?
+  productId        Int?
+  landingPageId    Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([scope])
+  @@index([productId])
+  @@index([landingPageId])
+}
+
+model EmailSetting {
+  id        Int      @id @default(autoincrement())
+  host      String?
+  port      Int?
+  user      String?
+  pass      String?
+  from      String?
+  isActive  Boolean  @default(false)
+  provider  String   @default("SMTP") // SMTP | SENDGRID
+  apiKey    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LandingPage {
+  id                Int      @id @default(autoincrement())
+  slug              String   @unique
+  title             String
+  subtitle          String?
+  productId         Int
+  headerImage       String?
+  videoUrl          String?
+  productDescription String?
+  regularPrice      String?
+  discountPrice     String?
+  productImages     Json?
+  productFeatures   String?
+  customerReviews   Json?
+  shippingAreas     Json?
+  freeDelivery      Boolean @default(false)
+  blocks            Json?
+  viewCount         Int    @default(0)
+  status            String   @default("draft")
+  pixelIds          Json?
+  publishedAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  product           Product  @relation(fields: [productId], references: [id])
+}
+
+model ProductPurchase {
+  id         Int       @id @default(autoincrement())
+  productId  Int
+  quantity   Int
+  unitPrice  Float
+  currency   String    @default("BDT")
+  status     String    @default("PENDING") // PENDING | APPROVED | REJECTED
+  note       String?
+  createdAt  DateTime  @default(now())
+  approvedAt DateTime?
+  product    Product   @relation(fields: [productId], references: [id])
+}
+
+model OtherExpense {
+  id         Int       @id @default(autoincrement())
+  title      String
+  category   String?
+  amount     Float
+  currency   String    @default("BDT")
+  date       DateTime  @default(now())
+  status     String    @default("PENDING") // PENDING | APPROVED | REJECTED
+  note       String?
+  createdBy  String
+  createdAt  DateTime  @default(now())
+  approvedAt DateTime?
+}
+
+model BudgetEntry {
+  id           Int      @id @default(autoincrement())
+  month        String
+  year         Int      @default(2025)
+  expenseType  String
+  amount       Float
+  currency     String   @default("BDT")
+  note         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model AdProductEntry {
+  id                 Int      @id @default(autoincrement())
+  month              String
+  year               Int      @default(2025)
+  productId          Int?
+  productName        String
+  productImage       String?
+  buyingPrice        Float
+  sellingPrice       Float?
+  fbAdCost           Float
+  deliveryCost       Float
+  returnParcelQty    Int      @default(0)
+  returnCost         Float    @default(0)
+  damagedProductQty  Int      @default(0)
+  damagedCost        Float    @default(0)
+  monthlyBudget      Float    @default(0)
+  desiredProfitPct   Float?
+  requiredMonthlyUnits Int?
+  requiredDailyUnits   Int?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  sellingTargets     SellingTargetEntry[]
+}
+
+model SellingTargetEntry {
+  id                Int             @id @default(autoincrement())
+  adProductEntryId  Int
+  date              String          // Format: "YYYY-MM-DD"
+  targetUnits       Int             @default(0)
+  soldUnits         Int             @default(0)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  adProductEntry    AdProductEntry  @relation(fields: [adProductEntryId], references: [id])
+  
+  @@unique([adProductEntryId, date])
+}
+
+// Authorization & User Management
+model Role {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  rolePermissions RolePermission[]
+  users           AppUser[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model Permission {
+  id         Int               @id @default(autoincrement())
+  resource   String
+  action     String
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  roleLinks  RolePermission[]
+  userLinks  UserPermission[]
+  @@unique([resource, action])
+}
+
+model RolePermission {
+  id           Int        @id @default(autoincrement())
+  roleId       Int
+  permissionId Int
+  allowed      Boolean    @default(true)
+  role         Role       @relation(fields: [roleId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  @@unique([roleId, permissionId])
+}
+
+model AppUser {
+  id              Int              @id @default(autoincrement())
+  name            String
+  email           String           @unique
+  status          String           @default("ACTIVE")
+  roleId          Int?
+  managerId       Int?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  role            Role?            @relation(fields: [roleId], references: [id])
+  manager         AppUser?         @relation("ManagerToUsers", fields: [managerId], references: [id])
+  subordinates    AppUser[]        @relation("ManagerToUsers")
+  userPermissions UserPermission[]
+  // Auth fields
+  userId         String?           @unique
+  passwordHash   String?
+  loginSlug      String?           @unique
+  phone         String?
+  avatarUrl     String?
+}
+
+// Storefront customer accounts (separate from admin AppUser)
+model Customer {
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  phone         String?   @unique
+  passwordHash  String
+  avatarUrl     String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  orders        Order[]
+  landingOrders LandingPageOrder[]
+}
+
+model UserPermission {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  permissionId Int
+  effect       String     @default("ALLOW") // ALLOW | DENY
+  user         AppUser    @relation(fields: [userId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  @@unique([userId, permissionId])
+}
+
+// Product Variations
+model Size {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  variations  ProductVariation[]
+}
+
+model Color {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  hexCode     String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  variations  ProductVariation[]
+}
+
+model ProductVariation {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  sizeId    Int?
+  colorId   Int?
+  quantity  Int      @default(0)
+  price     Float?
+  imageUrl  String?
+  sku       String?  @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  product   Product @relation(fields: [productId], references: [id])
+  size      Size?   @relation(fields: [sizeId], references: [id])
+  color     Color?  @relation(fields: [colorId], references: [id])
+  
+  @@unique([productId, sizeId, colorId])
+}
+
+// AI Chat System Models
+model ChatSession {
+  id           Int       @id @default(autoincrement())
+  sessionId    String    @unique
+  customerName String?
+  customerPhone String?
+  customerEmail String?
+  status       String    @default("active") // active, closed, archived
+  source       String    @default("website") // website, admin, landing_page
+  metadata     Json?     // Additional customer info
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  
+  messages     ChatMessage[]
+}
+
+model ChatMessage {
+  id          Int       @id @default(autoincrement())
+  sessionId   Int
+  content     String
+  messageType String    @default("text") // text, image, file
+  senderType  String    @default("customer") // customer, admin, ai
+  senderName  String?
+  isRead      Boolean   @default(false)
+  metadata    Json?     // Additional message info
+  createdAt   DateTime  @default(now())
+  
+  session     ChatSession @relation(fields: [sessionId], references: [id])
+}
+
+model ChatBotSetting {
+  id                    Int      @id @default(autoincrement())
+  isEnabled             Boolean  @default(true)
+  welcomeMessage        String   @default("স্বাগতম! আমি আপনার সাহায্য করতে পারি।")
+  aiModel               String   @default("gpt-4o-mini")
+  maxTokens             Int      @default(1000)
+  temperature           Float    @default(0.7)
+  systemPrompt          String   @default("You are a helpful AI assistant for an e-commerce website. Respond in Bengali (Bangla) language. Help customers with product information, orders, and general queries.")
+  autoResponseDelay     Int      @default(1000) // milliseconds
+  workingHours          Json?    // Working hours configuration
+  offlineMessage        String   @default("আমরা এখন অফলাইনে আছি। আপনার মেসেজ রেখে দিন, আমরা শীঘ্রই যোগাযোগ করব।")
+  openaiApiKey          String?  // OpenAI API Key stored in database
+  contactEmail          String?  // Support email for AI responses
+  contactWhatsApp       String?  // WhatsApp number for AI responses
+  contactWebsite        String?  // Website URL for AI responses
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+/// Customer journey event stream for views/checkout without orders
+model CustomerJourneyEvent {
+  id             Int       @id @default(autoincrement())
+  source         String    @default("website") // website | landing_page
+  pageType       String?   // product | checkout | landing_product | landing_checkout
+  status         String    @default("view") // view | checkout_form | checkout_filled | order_placed
+  // granular form capture (any field can be nullable to support partials)
+  fullName       String?
+  email          String?
+  sessionId      String?   // client/session identifier (e.g., external_id)
+  customerName   String?
+  phone          String?
+  address        String?
+  district       String?
+  thana          String?
+  productId      Int?
+  productName    String?
+  productImage   String?
+  landingPageId  Int?
+  landingPageSlug String?
+  orderId        Int?
+  eventTime      DateTime  @default(now())
+
+  @@index([status, eventTime])
+  @@index([source, eventTime])
+}
+
+// Password reset token storage
+model PasswordResetToken {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  token      String   @unique
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+}
+
+// Admin activity log to track who did what
+model AdminActivityLog {
+  id          Int      @id @default(autoincrement())
+  actorId     Int
+  action      String   // e.g., create_order, update_order_status, create_user, update_permissions
+  targetType  String?  // e.g., order, user, setting
+  targetId    String?  // store id as string to support multiple types
+  meta        Json?
+  createdAt   DateTime @default(now())
+}
