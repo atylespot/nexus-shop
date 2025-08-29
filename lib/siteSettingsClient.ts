@@ -1,12 +1,12 @@
 export interface SiteSettings {
   id?: number;
-  header?: any;
-  banner?: any;
-  general?: any;
-  payment?: any;
-  shipping?: any;
-  footer?: any;
-  [key: string]: any;
+  header?: Record<string, unknown>;
+  banner?: Record<string, unknown>;
+  general?: Record<string, unknown>;
+  payment?: Record<string, unknown>;
+  shipping?: Record<string, unknown>;
+  footer?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 /**
@@ -30,7 +30,9 @@ export async function fetchAndCacheSiteSettings(): Promise<SiteSettings | null> 
         localStorage.setItem('nexus-shop-footer-settings', JSON.stringify(json.footer));
       }
       localStorage.setItem('nexus-shop-settings-last-update', String(Date.now()));
-    } catch {}
+    } catch {
+      // Ignore localStorage errors
+    }
 
     return json;
   } catch {
@@ -38,7 +40,7 @@ export async function fetchAndCacheSiteSettings(): Promise<SiteSettings | null> 
   }
 }
 
-export function readCached<T = any>(key: string, fallback: T): T {
+export function readCached<T = Record<string, unknown>>(key: string, fallback: T): T {
   try {
     const val = localStorage.getItem(key);
     return val ? { ...fallback, ...JSON.parse(val) } : fallback;
