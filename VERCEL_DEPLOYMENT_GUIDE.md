@@ -16,6 +16,11 @@
    - next.config.js আপডেট করা হয়েছে
    - `experimental.turbo` থেকে `turbopack` এ পরিবর্তন
 
+4. **Tailwind CSS স্টাইলিং সমস্যা** ✅
+   - tailwind.config.js ফাইল তৈরি করা হয়েছে
+   - globals.css আপডেট করা হয়েছে
+   - সঠিক Tailwind CSS imports যোগ করা হয়েছে
+
 ## Vercel ডিপ্লয়মেন্ট স্টেপস:
 
 ### 1. Vercel প্রজেক্ট সেটআপ:
@@ -88,6 +93,23 @@ npm run build
 npm install
 ```
 
+## স্টাইলিং সমস্যা সমাধান:
+
+### যদি Tailwind CSS কাজ না করে:
+1. **tailwind.config.js** ফাইল আছে কিনা চেক করুন
+2. **globals.css** এ সঠিক imports আছে কিনা চেক করুন:
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+3. **postcss.config.mjs** সঠিক কিনা চেক করুন
+
+### যদি স্টাইলিং লোড হচ্ছে না:
+1. Vercel এ **Build Cache** ক্লিয়ার করুন
+2. **Redeploy** করুন
+3. **Browser Cache** ক্লিয়ার করুন
+
 ## ট্রাবলশুটিং:
 
 ### যদি এখনও Prisma ত্রুটি আসে:
@@ -107,13 +129,21 @@ npm install
 2. node_modules ডিলিট করে আবার ইনস্টল করুন
 3. TypeScript এররগুলি ফিক্স করুন
 
+### যদি স্টাইলিং সমস্যা থাকে:
+1. Tailwind CSS কনফিগারেশন চেক করুন
+2. CSS imports সঠিক কিনা চেক করুন
+3. Browser Developer Tools এ CSS লোড হচ্ছে কিনা চেক করুন
+
 ## সফল ডিপ্লয়মেন্টের লক্ষণ:
 - ✅ বিল্ড সফল (Build successful)
 - ✅ ডিপ্লয়মেন্ট কমপ্লিট (Deployment complete)
 - ✅ ওয়েবসাইট লাইভ (Website live)
+- ✅ স্টাইলিং সঠিকভাবে লোড হচ্ছে
+- ✅ ডেটা সঠিকভাবে লোড হচ্ছে
 
 ## গুরুত্বপূর্ণ নোট:
 - প্রোডাকশনে SQLite ব্যবহার করবেন না
 - MySQL বা PostgreSQL ব্যবহার করুন
 - সব এনভায়রনমেন্ট ভেরিয়েবল সেট করুন
 - ডাটাবেস ব্যাকআপ নিয়মিত রাখুন
+- Tailwind CSS কনফিগারেশন সঠিক রাখুন

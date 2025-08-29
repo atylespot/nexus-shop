@@ -10,13 +10,8 @@ const nextConfig = {
     domains: ['localhost', 'giftcombobd.com'],
     unoptimized: true,
   },
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
+  experimental: {
+    optimizePackageImports: ['@heroicons/react'],
   },
   env: {
     CUSTOM_KEY: 'my-value',
