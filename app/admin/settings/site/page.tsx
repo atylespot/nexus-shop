@@ -426,7 +426,7 @@ export default function SiteSettingsPage() {
   const addFooterLink = (section: string) => {
     setFooterSettings(prev => ({
       ...prev,
-      [section]: [...prev[section], { name: "New Link", url: "/" }]
+      [section]: [...(prev[section] as any[] || []), { name: "New Link", url: "/" }]
     }));
   };
 
@@ -434,7 +434,7 @@ export default function SiteSettingsPage() {
   const removeFooterLink = (section: string, index: number) => {
     setFooterSettings(prev => ({
       ...prev,
-      [section]: prev[section].filter((_: any, i: number) => i !== index)
+      [section]: (prev[section] as any[] || []).filter((_: any, i: number) => i !== index)
     }));
   };
   
